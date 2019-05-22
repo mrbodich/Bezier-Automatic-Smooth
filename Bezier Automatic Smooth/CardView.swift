@@ -11,14 +11,20 @@ import UIKit
 class CardView: UIView {
     
     override func draw(_ rect: CGRect) {
-        var path: UIBezierPath
-        path = drawSquiggle()
+        let shape = drawSquiggle()
+        let path = shape.drawShape()
         path.lineWidth = strokeWidth
         let color = UIColor.green
         color.setStroke()
         color.setFill()
         path.stroke()
-        drawStripes(outline: path)
+        
+        let context = UIGraphicsGetCurrentContext()!
+        context.saveGState()
+        drawStripes(outline: path) // fills shape with stripes
+        context.restoreGState()
+        
+        drawBezierControls(smoothBezier: shape) // Draw Bezier control points, comment it in real use
         
         self.sizeToFit()
     }
@@ -36,7 +42,30 @@ class CardView: UIView {
         stripes.stroke()
     }
     
-    func drawSquiggle() -> UIBezierPath {
+    //drawBezierControls(smoothBezier:) draw Bezier control points just for you to visually see result
+    func drawBezierControls(smoothBezier bezier: SmoothBezier) {
+        let thinStrokeWidth = strokeWidth / 2
+        
+        for (_, smoothPoint) in bezier.smoothControlPoints.enumerated() {
+            let circle1 = UIBezierPath(arcCenter: smoothPoint.point, radius: thinStrokeWidth, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: true)
+            let circle2 = UIBezierPath(arcCenter: smoothPoint.controlPointAfter, radius: thinStrokeWidth, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: true)
+            let circle3 = UIBezierPath(arcCenter: smoothPoint.controlPointBefore, radius: thinStrokeWidth, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: true)
+            let line = UIBezierPath()
+            line.move(to: smoothPoint.controlPointAfter)
+            line.addLine(to: smoothPoint.controlPointBefore)
+            line.lineWidth = strokeWidth / 2
+            UIColor.yellow.setStroke()
+            line.stroke()
+            UIColor.red.setFill()
+            circle1.fill()
+            UIColor.purple.setFill()
+            circle2.fill()
+            circle3.fill()
+        }
+    }
+    
+    // drawSquiggle() contains just certain control points for future bezier. Try to copy function and replace control points with another array of points
+    func drawSquiggle() -> SmoothBezier {
         let controlPointsNumbers: [[CGFloat]] = [[0, shapeHeight * 0.66],
                                           [shapeWidth * 0.33, shapeHeight * 0.1],
                                           [shapeWidth * 0.66, shapeHeight * 0.25],
@@ -46,7 +75,7 @@ class CardView: UIView {
                                           [shapeWidth * 0.33, shapeHeight * 0.75],
                                           [shapeWidth * 0.1, shapeHeight]]
         let shape = SmoothBezier(points: controlPointsNumbers, boundsWidth: frame.size.width, boundsHeight: frame.size.height, margin: shapeMargin, smoothinessRatio: 0.35)
-        return shape.drawShape()
+        return shape
     }
     
     override init(frame: CGRect) {
@@ -65,6 +94,9 @@ class CardView: UIView {
     
 }
 
+//===== SmoothBezier class automatically generating bezier control points for perfect smoothing
+//===== Points for initializer are ralative values from 0 to 1 inside bounds (height and width) for ease of size changing. You don't need to update all coordinates if you want to change shape size, just set bounds!
+//===== Look for drawSquiggle() function to see SmoothBezier in use, it's pretty simple
 struct SmoothBezier {
     var controlPoints: [CGPoint] {
         didSet {
@@ -97,21 +129,6 @@ struct SmoothBezier {
             default:
                 break
             }
-            /*let strokeWidth = shapeWidth * 0.02
-            let circle1 = UIBezierPath(arcCenter: smoothPoint.point, radius: strokeWidth, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: true)
-            let circle2 = UIBezierPath(arcCenter: smoothPoint.controlPointAfter, radius: strokeWidth, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: true)
-            let circle3 = UIBezierPath(arcCenter: smoothPoint.controlPointBefore, radius: strokeWidth, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: true)
-            let line = UIBezierPath()
-            line.move(to: smoothPoint.controlPointAfter)
-            line.addLine(to: smoothPoint.controlPointBefore)
-            line.lineWidth = strokeWidth / 2
-            UIColor.red.setFill()
-            circle1.fill()
-            UIColor.yellow.setStroke()
-            line.stroke()
-            UIColor.purple.setFill()
-            circle2.fill()
-            circle3.fill()*/
         }
         path.close()
         return path
