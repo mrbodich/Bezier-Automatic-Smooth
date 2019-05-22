@@ -13,6 +13,7 @@
 		E622A3FD2292D907007A7479 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E622A3FC2292D907007A7479 /* Assets.xcassets */; };
 		E622A4002292D907007A7479 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E622A3FE2292D907007A7479 /* LaunchScreen.storyboard */; };
 		E622A4082292D9F6007A7479 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E622A4072292D9F6007A7479 /* CardView.swift */; };
+		E670E0A72295CC1E001DB99C /* SmoothShapeExample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E670E0A62295CC1E001DB99C /* SmoothShapeExample.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		E622A3FF2292D907007A7479 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E622A4012292D907007A7479 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E622A4072292D9F6007A7479 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		E670E0A62295CC1E001DB99C /* SmoothShapeExample.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SmoothShapeExample.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		E622A3F42292D906007A7479 /* Bezier Automatic Smooth */ = {
 			isa = PBXGroup;
 			children = (
+				E670E0A52295CC0F001DB99C /* Img */,
 				E622A3F52292D906007A7479 /* AppDelegate.swift */,
 				E622A3F72292D906007A7479 /* ViewController.swift */,
 				E622A4072292D9F6007A7479 /* CardView.swift */,
@@ -65,6 +68,14 @@
 				E622A4012292D907007A7479 /* Info.plist */,
 			);
 			path = "Bezier Automatic Smooth";
+			sourceTree = "<group>";
+		};
+		E670E0A52295CC0F001DB99C /* Img */ = {
+			isa = PBXGroup;
+			children = (
+				E670E0A62295CC1E001DB99C /* SmoothShapeExample.jpg */,
+			);
+			path = Img;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +136,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E670E0A72295CC1E001DB99C /* SmoothShapeExample.jpg in Resources */,
 				E622A4002292D907007A7479 /* LaunchScreen.storyboard in Resources */,
 				E622A3FD2292D907007A7479 /* Assets.xcassets in Resources */,
 				E622A3FB2292D906007A7479 /* Main.storyboard in Resources */,
