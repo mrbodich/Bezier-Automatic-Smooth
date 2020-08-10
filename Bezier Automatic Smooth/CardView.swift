@@ -2,8 +2,8 @@
 //  CardView.swift
 //  Set Game
 //
-//  Created by Bogdan Chernobrivec on 27.07.2018.
-//  Copyright © 2018 Bogdan Chornobryvets. All rights reserved.
+//  Created by bodich on 27.07.2018.
+//  Copyright © 2018 bodich. All rights reserved.
 //
 
 import UIKit
@@ -12,6 +12,7 @@ class CardView: UIView {
     
     override func draw(_ rect: CGRect) {
         let shape = drawSquiggle()
+//        let shape = drawSomeShape()
         let path = shape.drawShape()
         path.lineWidth = strokeWidth
         let color = UIColor.green
@@ -74,6 +75,15 @@ class CardView: UIView {
                                           [shapeWidth * 0.66, shapeHeight * 0.9],
                                           [shapeWidth * 0.33, shapeHeight * 0.75],
                                           [shapeWidth * 0.1, shapeHeight]]
+        let shape = SmoothBezier(points: controlPointsNumbers, boundsWidth: frame.size.width, boundsHeight: frame.size.height, margin: shapeMargin, smoothinessRatio: 0.35)
+        return shape
+    }
+    
+    func drawSomeShape() -> SmoothBezier {
+        let controlPointsNumbers: [[CGFloat]] = [[0, shapeHeight * 0.5],
+                                                 [shapeWidth * 0.5, shapeHeight * 0],
+                                                 [shapeWidth * 1, shapeHeight * 0.5],
+                                                 [shapeWidth * 0.5, shapeHeight * 1]]
         let shape = SmoothBezier(points: controlPointsNumbers, boundsWidth: frame.size.width, boundsHeight: frame.size.height, margin: shapeMargin, smoothinessRatio: 0.35)
         return shape
     }
