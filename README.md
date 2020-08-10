@@ -1,7 +1,7 @@
 # Bezier-Automatic-Smooth
 
 
-__The main subject of project is SmoothBezier struct.__
+__The main subject of the project is SmoothBezier struct.__
 
 SmoothBezier struct automatically generating bezier control points for perfect smoothing (purple dots)
 Points for initializer are ralative values from 0 to 1 inside bounds (height and width) for ease of size changing.
